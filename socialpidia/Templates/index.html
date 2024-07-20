@@ -182,6 +182,7 @@
                         </a>
                         <div uk-drop="mode: click;offset:9" class="header_dropdown profile_dropdown border-t">
                             <ul>
+                                <li><a href="/profile/{{user.username}}"> My Profile </a> </li>
                                 <li><a href="/settings"> Account setting </a> </li>
                                 <li><a href="logout"> Log Out</a></li>
                             </ul>
@@ -212,7 +213,7 @@
                                             <img src="{{profile.profileimg.url}}" class="bg-gray-200 border border-white rounded-full w-8 h-8">
                                         </div>
                                     </a> -->
-                                    <span class="block capitalize font-semibold "><a href="#">@{{post.user}}</a></span>
+                                    <span class="block capitalize font-semibold "><a href="/profile/{{post.user}}">@{{post.user}}</a></span>
                                 </div>
                               <div>
                                 <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 "></i> </a>
@@ -266,20 +267,15 @@
                                     <a href="/like-post?post_id={{post.id}}" class="flex items-center space-x-2">
                                         <div class="p-2 rounded-full text-black">
                                             
-                                            {% if post.no_of_likes == 0 %}
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="black" width="25" height="25" class="">
                                                 <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
                                             </svg>
+                                            
+                                            {% if post.no_of_likes == 0 %}
                                             <a>No Likes</a>
                                             {% elif post.no_of_likes == 1 %}
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="blue" width="25" height="25" class="">
-                                                <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                                            </svg>
                                             <a>Liked by {{post.no_of_likes}} person</a>
                                             {% else %}
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="blue" width="25" height="25" class="">
-                                                <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                                            </svg>
                                             <a>Liked by {{post.no_of_likes}} people</a>
                                             {% endif %}
                                         </div>
@@ -313,7 +309,7 @@
                                 </div> -->
 
                                 <p>
-                                    <a href="#"><strong>{{post.user}}</strong></a> {{post.caption}}
+                                    <a href="/profile/{{post.user}}"><strong>{{post.user}}</strong></a> {{post.caption}}
                                 </p>
 
                                <!--  <div class="border-t pt-4 space-y-4 ">
