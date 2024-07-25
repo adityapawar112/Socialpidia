@@ -21,13 +21,18 @@ def index(request):
     for users in user_following:
         user_following_list.append(users.user)
 
+    #gets post by the user
+    user_posts = Post.objects.filter(user=request.user.username).order_by('-created_at')
+    feed.append(user_posts)
+
+    #gets posts by the users that the user is following
     for usernames in user_following:
-        feed_lists = Post.objects.filter(user = usernames)
+        feed_lists = Post.objects.filter(user = usernames).order_by('-created_at')
         feed.append(feed_lists)
 
     feed_list = list(chain(*feed))  
 
-    posts = Post.objects.all()
+    posts = sorted(feed_list, key=lambda x: x.created_at, reverse=True) #adds all the posts
     return render(request, 'index.html', {'user_profile' : user_profile, 'posts' : feed_list,})
 
 @login_required(login_url='signin')
@@ -51,6 +56,12 @@ def like_post(request):
         post.no_of_likes = post.no_of_likes-1
         post.save()
         return redirect('/')
+
+@login_required(login_url='signin')
+def delete_post(request, post_id):
+    post = Post.objects.get(id=post_id, user=request.user)
+    post.delete()
+    return redirect('/')
 
 @login_required(login_url='signin')
 def profile(request, pk):
